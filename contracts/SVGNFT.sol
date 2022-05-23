@@ -12,4 +12,13 @@ contract SVGNFT is ERC721URIStorage, Ownable {
     constructor() ERC721("SVG NFT", "svgNFT") {
         tokenCounter = 0;
     }
+
+    //create the NFT
+    function create(string memory svg) public {
+        _safeMint(msg.sender, tokenCounter);
+        string memory imageURI = svgToImageURI(svg);
+        _setTokenURI(tokenCounter, formatTokenURI(imageURI));
+        tokenCounter++;
+        emit CreatedSVGNFT(tokenCounter, svg);
+    }
 }
