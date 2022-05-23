@@ -21,4 +21,17 @@ contract SVGNFT is ERC721URIStorage, Ownable {
         tokenCounter++;
         emit CreatedSVGNFT(tokenCounter, svg);
     }
+
+    //create the imageURI from SVG
+    function svgToImageURI(string memory svg)
+        public
+        pure
+        returns (string memory)
+    {
+        string memory baseURL = "data:image/svg+xml;base64,";
+        string memory svgBase64Encoded = Base64.encode(
+            bytes(string(abi.encodePacked(svg)))
+        );
+        return string(abi.encodePacked(baseURL, svgBase64Encoded));
+    }
 }
